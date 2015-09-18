@@ -1,23 +1,38 @@
 #include "Matrix.h"
-
+#include <cstdio>
+#include <Windows.h>
+#define SIZE 2048
+#define IT 10
 int main()
 {
-	Matrix a(2, 3), b(3, 2), c(2, 2);
+	Matrix a(SIZE, SIZE, false), b(SIZE, SIZE, false), c(SIZE, SIZE, false);
 
-	a.set(0, 0, 1);
-	a.set(0, 1, 2);
-	a.set(0, 2, 3);
-	a.set(1, 0, 4);
-	a.set(1, 1, 5);
-	a.set(1, 2, 6);
+	for (int i = 0; i < SIZE; ++i)
+		for (int j = 0; j < SIZE; ++j) {
+			a.set(i, j, 1);
+			b.set(i, j, 1);
+		}
+	
+	DWORD time = 0;
+	printf("cachemul:\n");
+	for (int i = 2; i <= 1024; i<<=1) {
+		c.reset();
+		DWORD start = GetTickCount();
+		Matrix::ikjmul2(a, b, c);
+		DWORD end = GetTickCount();
+		time += end - start;
+		printf("\t%d: %d.%d\n", i, (end - start) / 1000, (end - start) % 1000);
+	}
+	time /= IT;
+	printf("\tavg=%d.%d\n", time / 1000, time % 1000);
 
-	b.set(0, 0, 1);
-	b.set(0, 1, 2);
-	b.set(1, 0, 3);
-	b.set(1, 1, 4);
-	b.set(2, 0, 5);
-	b.set(2, 1, 6);
-
-	Matrix::mul(a, b, c);
+	/*Matrix::optmul(a, b, c);
+	for (int i = 0; i < SIZE; ++i) {
+		for (int j = 0; j < SIZE; ++j) {
+			printf("%g ", c.get(i, j));
+		}
+		puts("");
+	}*/
+	//IMatrix::__init__();
 	return 0;
 }
