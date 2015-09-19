@@ -146,12 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\IMatrix.h" />
-    <ClInclude Include="src\Matrix.h" />
+    <ClInclude Include="src\config_reader.h" />
+    <ClInclude Include="src\matrix.h" />
+    <ClInclude Include="src\matrix_config.h" />
+    <ClInclude Include="src\matrix_primitives.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\IMatrix.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\matrix_config.cpp" />
+    <ClCompile Include="src\matrix_primitives.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

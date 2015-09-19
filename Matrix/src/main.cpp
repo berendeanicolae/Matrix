@@ -18,7 +18,7 @@ int main()
 	for (int i = 2; i <= 1024; i<<=1) {
 		c.reset();
 		DWORD start = GetTickCount();
-		Matrix::ikjmul2(a, b, c);
+		Matrix::ikjmul2(a, a, c);
 		DWORD end = GetTickCount();
 		time += end - start;
 		printf("\t%d: %d.%d\n", i, (end - start) / 1000, (end - start) % 1000);
@@ -33,6 +33,6 @@ int main()
 		}
 		puts("");
 	}*/
-	//IMatrix::__init__();
+	//MatrixConfig::__init__();
 	return 0;
 }
