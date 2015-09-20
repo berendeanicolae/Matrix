@@ -60,7 +60,16 @@ uint32_t parse(FILE *stream, handler handler) {
 uint32_t parse(const char *filePath, handler handler) {
 	FILE *f = NULL;
 	
-	if (!fopen_s(&f, filePath, "r") || !f)
+	#ifdef _WIN32
+	if (!fopen_s(&f, filePath, "r"))
+		return 0xffffffff;
+	#endif
+
+	#ifdef __unix__
+	f = fopen(filePath, "r");
+	#endif
+
+	if (!f)
 		return 0xffffffff;
 	return parse(f, handler);
 }
