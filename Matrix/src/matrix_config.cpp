@@ -2,7 +2,7 @@
 #include "matrix_primitives.h"
 #include "config_reader.h"
 
-#define SIZE 1024
+#define TEST_SIZE 1024
 
 uint32_t MatrixConfig::step = 0;
 
@@ -14,6 +14,7 @@ void MatrixConfig::handler(char *key, char *value) {
 
 #ifdef _WIN32
 #include <Windows.h>
+
 uint32_t getTicks() {
 	return GetTickCount();
 }
@@ -34,18 +35,18 @@ void MatrixConfig::init() {
 		double *a, *c;
 		uint32_t start, end, bestTime;
 
-		a = new double[SIZE*SIZE];
-		c = new double[SIZE*SIZE];
+		a = new double[TEST_SIZE*TEST_SIZE];
+		c = new double[TEST_SIZE*TEST_SIZE];
 
 		step = 8;
 		start = getTicks();
-		MatrixPrimitives::ijkmul(SIZE, SIZE, SIZE, a, a, c, step);
+		MatrixPrimitives::ijkmul(TEST_SIZE, TEST_SIZE, TEST_SIZE, a, a, c, step);
 		end = getTicks();
 		bestTime = end - start;
 
 		for (uint32_t i = 16; i <= 1024; i *= 2) {
 			start = getTicks();
-			MatrixPrimitives::ijkmul(SIZE, SIZE, SIZE, a, a, c, 8);
+			MatrixPrimitives::ijkmul(TEST_SIZE, TEST_SIZE, TEST_SIZE, a, a, c, 8);
 			end = getTicks();
 			if (end - start < bestTime) {
 				bestTime = end - start;
