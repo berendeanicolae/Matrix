@@ -31,7 +31,7 @@ static char* findChar(char *str, char chr) {
 
 uint32_t parse(FILE *stream, handler handler) {
 	char *start, *end;
-	char *line;
+	char *line = new char[MAX_LINE_SIZE];
 	uint32_t lineNo = 0;
 
 
@@ -53,6 +53,8 @@ uint32_t parse(FILE *stream, handler handler) {
 		if (start && *start && end && *end)
 			handler(start, end);
 	}
+
+	return 0;
 }
 
 uint32_t parse(const char *filePath, handler handler) {

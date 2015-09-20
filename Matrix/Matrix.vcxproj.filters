@@ -21,10 +21,10 @@
     <ClInclude Include="src\config_reader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\matrix.h">
+    <ClInclude Include="src\matrix_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\matrix_config.h">
+    <ClInclude Include="src\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

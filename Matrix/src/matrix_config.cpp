@@ -4,7 +4,7 @@
 #include "config_reader.h"
 #define SIZE 1024
 
-uint32_t MatrixConfig::step = 8;
+uint32_t MatrixConfig::step = 0;
 
 void MatrixConfig::handler(char *key, char *value) {
 	if (!strcmp(key, "step")) {
@@ -20,20 +20,24 @@ void MatrixConfig::init() {
 		a = new double[SIZE*SIZE];
 		c = new double[SIZE*SIZE];
 
+		step = 8;
 		start = GetTickCount();
-		ijkmul(SIZE, SIZE, SIZE, a, a, c, 8);
+		MatrixPrimitives::ijkmul(SIZE, SIZE, SIZE, a, a, c, step);
 		end = GetTickCount();
 		bestTime = end - start;
 
 		for (uint32_t i = 16; i <= 1024; i *= 2) {
 			start = GetTickCount();
-			ijkmul(SIZE, SIZE, SIZE, a, a, c, 8);
+			MatrixPrimitives::ijkmul(SIZE, SIZE, SIZE, a, a, c, 8);
 			end = GetTickCount();
 			if (end - start < bestTime) {
 				bestTime = end - start;
 				step = i;
 			}
 		}
+
+		delete[] a;
+		delete[] c;
 	}
 }
 
